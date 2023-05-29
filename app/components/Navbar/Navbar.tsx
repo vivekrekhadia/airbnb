@@ -6,7 +6,14 @@ import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
 
-export default function Navbar() {
+import { SafeUser } from "@/app/types";
+import Categories from "./Categories";
+
+interface NavabarProps {
+  currentUser?: SafeUser | null;
+}
+const Navbar: React.FC<NavabarProps> = ({ currentUser }) => {
+  console.log(currentUser, "NavabarProps");
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
       <div className="py-4 border-b-[1px]">
@@ -14,10 +21,13 @@ export default function Navbar() {
           <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
             <Logo />
             <Search />
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>
+      <Categories />
     </div>
   );
-}
+};
+
+export default Navbar;

@@ -9,7 +9,7 @@ const Logo = () => {
     <Image
       alt="logo"
       className="hidden md:block cursor-pointer"
-      src="/images/logoair.png"
+      src="/Images/logoair.png"
       height="100"
       width="100"
     />
