@@ -127,6 +127,7 @@ const RegisterModal = () => {
       actionLabel="Continue"
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
+      footer={footerContent}
     />
   );
 };
