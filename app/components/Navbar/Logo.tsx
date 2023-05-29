@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 
 const Logo = () => {
-  const router = useRouter;
+  const router = useRouter();
   return (
     <Image
       alt="logo"
@@ -12,6 +12,7 @@ const Logo = () => {
       src="/Images/logoair.png"
       height="100"
       width="100"
+      onClick={() => router.push("/")}
     />
   );
 };
