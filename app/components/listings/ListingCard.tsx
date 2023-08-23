@@ -1,24 +1,25 @@
 "use client";
 
-import useCountries from "@/app/hooks/useCountries";
-import { SafeUser } from "@/app/types";
-import { Listing, Reservation } from "@prisma/client";
-import { format } from "date-fns";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useCallback, useMemo } from "react";
+import { format } from "date-fns";
 
-import React, { useCallback, useMemo } from "react";
-import Button from "../Button";
+import useCountries from "@/app/hooks/useCountries";
+import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
+
 import HeartButton from "../HeartButton";
+import Button from "../Button";
+import ClientOnly from "../ClientOnly";
 
 interface ListingCardProps {
-  data: Listing;
-  reservation?: Reservation;
+  data: SafeListing;
+  reservation?: SafeReservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
-  currentUser: SafeUser | null;
+  currentUser?: SafeUser | null;
 }
 
 const ListingCard: React.FC<ListingCardProps> = ({
@@ -26,14 +27,15 @@ const ListingCard: React.FC<ListingCardProps> = ({
   reservation,
   onAction,
   disabled,
-  actionId = "",
   actionLabel,
+  actionId = "",
   currentUser,
 }) => {
   const router = useRouter();
   const { getByValue } = useCountries();
 
   const location = getByValue(data.locationValue);
+
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
@@ -74,31 +76,31 @@ const ListingCard: React.FC<ListingCardProps> = ({
       <div className="flex flex-col gap-2 w-full">
         <div
           className="
-        aspect-square 
-        w-full 
-        relative 
-        overflow-hidden 
-        rounded-xl
-      "
+            aspect-square 
+            w-full 
+            relative 
+            overflow-hidden 
+            rounded-xl
+          "
         >
           <Image
             fill
             className="
-          object-cover 
-          h-full 
-          w-full 
-          group-hover:scale-110 
-          transition
-        "
+              object-cover 
+              h-full 
+              w-full 
+              group-hover:scale-110 
+              transition
+            "
             src={data.imageSrc}
             alt="Listing"
           />
           <div
             className="
-        absolute
-        top-3
-        right-3
-      "
+            absolute
+            top-3
+            right-3
+          "
           >
             <HeartButton listingId={data.id} currentUser={currentUser} />
           </div>
